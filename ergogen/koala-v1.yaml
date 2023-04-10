@@ -1,0 +1,184 @@
+units:
+  # Proxy spacing variables
+  kx: U
+  ky: U
+  # Padding variables
+  px: kx + 4
+  py: ky + 4
+points:
+  zones:
+    matrix:
+      key:
+        padding: 1ky
+        spread: 1kx
+      columns:
+        pinky:
+          rows.top:
+            shift: [-1kx, -0.5ky]
+          key:
+            splay: 12
+            column_net: P21
+            mirror.column_net: P2
+        ring:
+          key:
+            stagger: 5
+            splay: -4
+            column_net: P20
+            mirror.column_net: P3
+          rows.bottom:
+            shift: [1,0]
+        middle:
+          key:
+            stagger: 2.5
+            splay: -4
+            column_net: P19
+            mirror.column_net: P4
+          rows.bottom:
+            shift: [2,0]
+        index:
+          key:
+            stagger: -2.5
+            splay: -4
+            column_net: P18
+            mirror.column_net: P5
+          rows.bottom:
+            shift: [3,0]
+        inner:
+          key:
+            stagger: 0.5ky
+            column_net: P15
+            mirror.column_net: P6
+          rows.bottom:
+            shift: [4,0]
+      rows:
+        bottom:
+          row_net: P10
+        home:
+          row_net: P8
+        top:
+          row_net: P16
+      anchor:
+        shift: [100, -100]
+    thumbs:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [1kx, -1.7ky]
+      columns:
+        inner:
+          key:
+            column_net: P18
+            mirror.column_net: P5
+        outer:
+          key:
+            splay: -15
+            shift: [3, -2]
+            column_net: P15
+            mirror.column_net: P6
+      rows:
+        cluster:
+          row_net: P9
+  rotate: -20
+  mirror: &mirror
+    ref: matrix_inner_top
+    distance: 4kx
+outlines:
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  keys:
+    - what: rectangle
+      where: true
+      size: [kx-0.5,ky-0.5]
+  board:
+    - what: polygon
+      operation: stack
+      points:
+        - ref: matrix_pinky_top
+          shift: [-0.5px,-0.5py]
+        - ref: matrix_pinky_top
+          shift: [-0.5px,0.5py]
+        - ref: matrix_ring_top
+          shift: [-0.5px,0.5py]
+        - ref: matrix_middle_top
+          shift: [-0.5px,0.5py]
+        - ref: matrix_inner_top
+          shift: [-0.5px,0.5py]
+        - ref: matrix_inner_top
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_inner_top
+          shift: [0.5px,0.5py]
+        - ref: mirror_matrix_inner_top
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_middle_top
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_ring_top
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_pinky_top
+          shift: [-0.5px,0.5py]
+        - ref: mirror_matrix_pinky_top
+          shift: [-0.5px,-0.5px]
+        - ref: mirror_matrix_pinky_bottom
+          shift: [-0.5px,-0.5py]
+        - ref: mirror_matrix_ring_bottom
+          shift: [-0.25px,-0.75py]
+        - ref: mirror_matrix_ring_bottom
+          shift: [0.5px, -0.5py]
+        - ref: mirror_matrix_middle_bottom
+          shift: [1.25px,-0.75py]
+        - ref: mirror_thumbs_inner_cluster
+          shift: [-0.5px,-0.5py]
+        - ref: mirror_thumbs_outer_cluster
+          shift: [0.5px,-0.5py]
+        - ref: thumbs_outer_cluster
+          shift: [0.5px,-0.5py]
+        - ref: thumbs_inner_cluster
+          shift: [-0.5px,-0.5py]
+        - ref: matrix_middle_bottom
+          shift: [1.25px,-0.75py]
+        - ref: matrix_ring_bottom
+          shift: [0.5px, -0.5py]
+        - ref: matrix_ring_bottom
+          shift: [-0.25px,-0.75py]
+        - ref: matrix_pinky_bottom
+          shift: [-0.5px,-0.5py]
+      fillet: 6
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+pcbs:
+  koala:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      mx_hotswap:
+        what: mx
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      # Face Down Arduino Pro Micro
+      promicro:
+        what: promicro
+        params:
+          orientation: "down"
+        where:
+          ref.aggregate.parts: [matrix_inner_home, mirror_matrix_inner_home]
+          shift: [0,5]
+          rotate: -90
