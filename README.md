@@ -1,11 +1,65 @@
-# The koala keyboard
-This is a 34-key ergonomic unibody keyboard.
+# koala keyboard
 
-**This is work in progress**
+This is a 34-key column-staggered unibody keyboard.
 
-The keyboard is inspired by the [clog-v4 keyboard from smores](https://github.com/smores56/clog-v4) and was built with the use of the [tutorial of FlatFootFox](https://flatfootfox.com/ergogen-introduction/).
-Shout-out to both of them - thank you for your work.
+![complete_build](/pictures/IMG_complete.jpg)
 
-To start with this project, I drew my finger movements on an iPad and placed the keys accordingly. The differences between the clog v4 and the koala is that the top key of the pinky cluster is moved up half a key, I added another 4° splay between index and middle finger, moved up the inner column half a key up and also moved the thumbs cluster more outwards (and what you for sure realized, the koala is a unibody design - not a split one). These changes are all based to my personal finger movements. There are also some technical differences - my board is based on a pro micro, instead of a seeduino xiao controller and I also used mx-switches, instead of choch-switches.
+## PCB
 
-![preview](./pictures/preview.png)
+You can modify the [KiCad files](/kicad/) or straight download the [Gerber files](/gerber/) to order the PCB.
+
+![pcb](./pictures/pcb.png)
+
+## BUILD GUIDE
+  
+The build guide for the koala can be found [here](/docs/buildguide.md).
+## Firmware
+
+### QWERTY
+      ┌───┬───┬───┬───┬───┐   ┌───┬───┬───┬───┬───┐
+      │ Q │ W │ E │ R │ T │   │ Y │ U │ I │ O │ P │
+      ├───┼───┼───┼───┼───│   │───┼───┼───┼───┼───┤
+      │ A │ S │ D │ F │ G │   │ H │ J │ K │ L │ ; │
+      ├───┼───┼───┼───┼───│   │───┼───┼───┼───┼───┤
+      │ Z │ X │ C │ V │ B │   │ N │ M │ , │ . │ / │
+      └───┴───┴───┼───┼───│   │───┼───┼───┴───┴───┘
+                  │Ent│Tab│   │Bsp│Spc│
+                  └───┴───┘   └───┴───┘
+[QMK config: QWERTY](https://github.com/currentkb/qmk_firmware/tree/feat/koala/keyboards/koala/keymaps/default)
+
+[pre-built firmware: QWERTY](/firmware/koala_default.hex)
+### COLEMAK DH
+    
+      ┌───┬───┬───┬───┬───┐   ┌───┬───┬───┬───┬───┐
+      │ Q │ W │ F │ P │ B │   │ J │ L │ U │ Y │ ; │
+      ├───┼───┼───┼───┼───│   │───┼───┼───┼───┼───┤
+      │ A │ R │ S │ T │ G │   │ M │ N │ E │ I │ O │
+      ├───┼───┼───┼───┼───│   │───┼───┼───┼───┼───┤
+      │ Z │ X │ C │ D │ V │   │ K │ H │ , │ . │ / │
+      └───┴───┴───┼───┼───│   │───┼───┼───┴───┴───┘
+                  │Ent│Tab│   │Bsp│Spc│
+                  └───┴───┘   └───┴───┘
+
+[QMK config: COLEMAK DH](https://github.com/currentkb/qmk_firmware/tree/feat/koala/keyboards/koala/keymaps/colemakdh)
+
+[pre-built firmware: COLEMAK DH](/firmware/koala_colemakdh.hex)
+
+## CREDITS
+
+### INSPIRATION
+
+The keyboard is inspired by the [clog-v4 keyboard from smores](https://github.com/smores56/clog-v4).
+
+[Sam Mohr](https://github.com/smores56)
+
+### PROCESS
+
+The keyboard was built with the use of the [tutorial of FlatFootFox](https://flatfootfox.com/ergogen-introduction/).
+
+[FlatFootFox](https://flatfootfox.com/)
+
+### DOCUMENTATION
+
+I used the [repository of the TOTEM keyboard](https://github.com/GEIGEIGEIST/TOTEM) as a reference to build this.
+
+[GEIST](https://github.com/GEIGEIGEIST)
